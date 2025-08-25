@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.project.controller.UserController" spacing="10" alignment="CENTER">
+    <TextField fx:id="nameField" promptText="Enter name"/>
+    <TextField fx:id="emailField" promptText="Enter email"/>
+    <Button fx:id="saveButton" text="Save User"/>
+</VBox>
