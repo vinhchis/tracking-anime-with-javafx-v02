@@ -1,5 +1,8 @@
 package com.project.auth;
 
+import com.project.navigation.SceneManaged;
+import com.project.navigation.SceneManager;
+import com.project.navigation.View;
 import com.project.service.AuthService;
 
 import javafx.beans.binding.Bindings;
@@ -8,17 +11,17 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class LoginViewModel   {
-     // Properties để binding với các control trên View
+public class LoginViewModel implements SceneManaged {
     private final StringProperty username = new SimpleStringProperty("");
     private final StringProperty password = new SimpleStringProperty("");
     private final StringProperty message = new SimpleStringProperty("");
     private final BooleanProperty loginDisabled = new SimpleBooleanProperty(true);
 
     private final AuthService authService = new AuthService();
+    private SceneManager sceneManager;
+
 
     public LoginViewModel() {
-        // Vô hiệu hóa nút login nếu username hoặc password rỗng
         loginDisabled.bind(Bindings.createBooleanBinding(
             () -> username.get().trim().isEmpty() || password.get().trim().isEmpty(),
             username,
@@ -26,22 +29,28 @@ public class LoginViewModel   {
         ));
     }
 
+    @Override
+    public void setSceneManager(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
+
     public void login() {
         boolean isAuthenticated = authService.authenticate(username.get(), password.get());
 
         if (isAuthenticated) {
-            message.set("Đăng nhập thành công! Chào mừng " + username.get());
-            // Thêm logic chuyển trang ở đây, ví dụ: sceneManager.switchTo(View.DASHBOARD);
+            message.set("Login Successfully!!! " + username.get());
+            // sceneManager.switchTo(View.USER_DASHBOARD);
         } else {
-            message.set("Lỗi: Tên đăng nhập hoặc mật khẩu không đúng.");
+            message.set("Your username or password is't correct.\nPlease, enter again!!!");
         }
     }
 
-    // Cung cấp các getters cho Properties để View có thể bind
     public StringProperty usernameProperty() { return username; }
     public StringProperty passwordProperty() { return password; }
     public StringProperty messageProperty() { return message; }
     public BooleanProperty loginDisabledProperty() { return loginDisabled; }
+
+
 
 
 }

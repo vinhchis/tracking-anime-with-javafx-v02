@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController implements SceneManaged {
+public class LoginController{
 
     @FXML
     private TextField usernameField;
@@ -22,12 +22,6 @@ public class LoginController implements SceneManaged {
 
     private LoginViewModel viewModel;
 
-    private SceneManager sceneManager;
-
-    @Override
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-    }
 
 
     @FXML

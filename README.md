@@ -13,6 +13,9 @@
     - `mvn clean javafx:run` : chạy
     - `mvn clean install" - build lại
 
+
+**File hình**:
+- lưu trong:
 ### Controls
 
 1. JavaFX,
@@ -37,7 +40,7 @@
 - MyList
 - Notification
 - Profile
-- Dashboard
+- Dashboard/Overview
 - Discover (List Anime, Search)
 - AnimeDetails
 

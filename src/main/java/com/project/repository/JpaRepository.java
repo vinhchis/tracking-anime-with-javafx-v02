@@ -16,7 +16,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
     @SuppressWarnings("unchecked")
     public JpaRepository(EntityManagerFactory emf) {
         this.emf = emf;
-        // Sử dụng reflection để lấy kiểu T lúc runtime
         this.entityClass = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
     }
@@ -36,7 +35,7 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Không thể lưu entity", e);
+            throw new RuntimeException("Can't not save", e);
         } finally {
             em.close();
         }
@@ -64,7 +63,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
         }
     }
 
-
     @Override
     public void delete(T entity) {
         EntityManager em = emf.createEntityManager();
@@ -78,7 +76,7 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Không thể xóa entity", e);
+            throw new RuntimeException("Can't delete", e);
         } finally {
             em.close();
         }
@@ -87,5 +85,36 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
     @Override
     public void deleteById(ID id) {
         findById(id).ifPresent(this::delete);
+    }
+
+    @Override
+    public long count() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            // Tạo câu lệnh truy vấn JPQL để đếm
+            return em.createQuery("SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e", Long.class)
+                    .getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void saveAll(Iterable<T> entities) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            for (T entity : entities) {
+                em.merge(entity);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx.isActive())
+                tx.rollback();
+            throw new RuntimeException("Không thể lưu danh sách entities", e);
+        } finally {
+            em.close();
+        }
     }
 }

@@ -9,4 +9,6 @@ public interface GenericRepository<T, ID> {
     List<T> findAll();
     void delete(T entity);
     void deleteById(ID id);
+    long count();
+    void saveAll(Iterable<T> entities);
 }
