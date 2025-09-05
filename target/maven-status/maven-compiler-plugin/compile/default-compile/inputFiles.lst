@@ -1,7 +1,10 @@
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/Main.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/admin/AdminDashboardController.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/admin/AdminDashboardViewModel.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/auth/LoginController.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/auth/LoginViewModel.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/auth/RegisterController.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/auth/RegisterViewModel.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/entity/Account.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/entity/Anime.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/entity/Episode.java
@@ -10,6 +13,7 @@
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/entity/Studio.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/entity/Tracking.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/model/SeasonId.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/navigation/NavigationEvent.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/navigation/SceneManaged.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/navigation/SceneManager.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/navigation/View.java
@@ -26,6 +30,8 @@
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/service/ImageService.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/shared/anime_card/AnimeCardController.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/shared/anime_card/AnimeCardViewModel.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/user/UserDashboardController.java
+/home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/user/UserDashboardViewModel.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/util/HashUtil.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/util/JpaUtil.java
 /home/vinhchis/Desktop/tracking-anime-with-javafx-v02/src/main/java/com/project/util/SeedData.java

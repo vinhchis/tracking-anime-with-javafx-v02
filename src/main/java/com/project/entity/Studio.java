@@ -22,7 +22,7 @@ public class Studio {
     @Column(name = "logo_url", length = 255)
     private String logoUrl;
 
-    @Column(name = "best_animes", columnDefinition = "TEXT")
+    @Column(name = "best_animes", columnDefinition = "NVARCHAR(MAX)")
     private String bestAnimes;
 
     // --- Relationships ---

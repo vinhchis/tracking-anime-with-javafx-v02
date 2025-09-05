@@ -10,7 +10,7 @@ public enum View {
     USER_MANAGEMENT("/admin/UserManagementView.fxml"),
 
     // User Module
-    USER_DASHBOARD("/user/DashboardView.fxml"),
+    USER_DASHBOARD("/user/UserDashboardView.fxml"),
     USER_PROFILE("/user/ProfileView.fxml");
 
     private final String fxmlFile;

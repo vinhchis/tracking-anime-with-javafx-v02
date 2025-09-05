@@ -9,7 +9,8 @@
 
 1. Clone về máy
 2. Sửa file `.env.example` thành `.env`, điền thông tin  connection của mình
-3. Build và Run
+3. Với lần chạy đầu tiên, mở khóa các comment trong function `seeds` của `SeedData.java` để tự tạo dữ liễu mẫu
+4. Build và Run
     - `mvn clean javafx:run` : chạy
     - `mvn clean install" - build lại
 
@@ -27,7 +28,7 @@
 - ViewModel: logic (gọi services), Property(state) + Event
 - Model:
 - View:
-    - Controller: binding ViewModel
+    - Controller: binding ViewModel, navigation
 **Thứ tự:** Model -> ViewModel -> Controller
 
 ## Màn hình (Views)

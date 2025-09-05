@@ -18,5 +18,6 @@
             <Label fx:id="messageLabel" text="message" />
          </children>
       </VBox>
+      <Button layoutX="438.0" layoutY="152.0" mnemonicParsing="false" onAction="#goToRegister" onDragDetected="#goToRegister" text="Go Register" />
    </children>
 </AnchorPane>

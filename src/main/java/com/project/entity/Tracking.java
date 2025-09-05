@@ -24,7 +24,7 @@ public class Tracking {
 
     private Byte rating;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String note;
 
     // --- Relationships ---

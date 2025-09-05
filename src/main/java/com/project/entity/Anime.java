@@ -23,7 +23,7 @@ public class Anime {
     @Column(name = "poster_url", length = 255)
     private String posterUrl;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String introduction;
 
     @Enumerated(EnumType.STRING)
