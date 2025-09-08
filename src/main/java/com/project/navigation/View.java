@@ -1,13 +1,12 @@
 package com.project.navigation;
 
 public enum View {
-    // Auth Module
+    // Auth Pages
     LOGIN("/auth/LoginView.fxml"),
     REGISTER("/auth/RegisterView.fxml"),
 
-    // Admin Module
+    // Admin Pages
     ADMIN_DASHBOARD("/admin/AdminDashboardView.fxml"),
-    USER_MANAGEMENT("/admin/UserManagementView.fxml"),
 
     // User Module
     USER_DASHBOARD("/user/UserDashboardView.fxml"),

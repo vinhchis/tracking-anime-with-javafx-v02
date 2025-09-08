@@ -23,7 +23,7 @@ public class Main extends Application {
         // inject Stage to SceneManager
         SceneManager sceneManager = new SceneManager(primaryStage); // not change
 
-        sceneManager.switchTo(View.LOGIN);
+        sceneManager.switchTo(View.ADMIN_DASHBOARD);
 
         primaryStage.show();
     }
