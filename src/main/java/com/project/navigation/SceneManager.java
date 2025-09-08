@@ -49,3 +49,7 @@ public class SceneManager{
         }
     }
 }
+/*
+ * Controllers must implement SceneManaged interface to get SceneManager
+ *
+ */

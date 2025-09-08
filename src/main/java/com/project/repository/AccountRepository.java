@@ -42,4 +42,19 @@ public class AccountRepository extends JpaRepository<Account, Integer> {
             em.close();
         }
     }
+
+    public Optional<Account> findbyUsername(String username) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Account account = em.createQuery(
+                    "SELECT a FROM Account a WHERE a.username = :u", Account.class)
+                    .setParameter("u", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+            return Optional.ofNullable(account);
+        } finally {
+            em.close();
+        }
+    }
 }

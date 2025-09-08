@@ -3,8 +3,10 @@ package com.project.auth;
 import com.project.navigation.SceneManaged;
 import com.project.navigation.SceneManager;
 import com.project.navigation.View;
+import com.project.util.AlertUtil;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -42,11 +44,19 @@ public class LoginController implements SceneManaged{
         viewModel.navigationRequestProperty().addListener((obs, oldEvent, newEvent) -> {
             if (newEvent != null) {
                 switch (newEvent) {
-                    case LOGIN_SUCCESS:
+                    case NAVIGATE_TO_USER_DASHBOARD:
                         sceneManager.switchTo(View.USER_DASHBOARD);
+                        AlertUtil.showAlert(Alert.AlertType.INFORMATION,
+                                usernameField.getScene().getWindow(),
+                                "Login Successful",
+                                "Welcome to the User Dashboard!");
                         break;
-                    case NAVIGATE_TO_REGISTER:
+                    case NAVIGATE_TO_ADMIN_DASHBOARD:
                         sceneManager.switchTo(View.ADMIN_DASHBOARD);
+                        AlertUtil.showAlert(Alert.AlertType.INFORMATION,
+                                usernameField.getScene().getWindow(),
+                                "Login Successful",
+                                "Welcome to the Admin Dashboard!");
                         break;
                 }
                 // Reset lại property sau khi đã xử lý xong
@@ -58,6 +68,14 @@ public class LoginController implements SceneManaged{
     @FXML
     private void handleLogin() {
         viewModel.login();
+
+        if (viewModel.navigationRequestProperty().get() == null) {
+            AlertUtil.showAlert(Alert.AlertType.ERROR,
+                    usernameField.getScene().getWindow(),
+                    "Login Failed",
+                    viewModel.messageProperty().get());
+            usernameField.requestFocus();
+        }
     }
 
     @FXML
