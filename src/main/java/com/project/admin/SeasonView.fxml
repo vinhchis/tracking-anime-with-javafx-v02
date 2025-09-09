@@ -1,11 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project.admin.SeasonController">
 
+    <!-- Header -->
+    <top>
+        <HBox spacing="10">
+            <children>
+                <Label style="-fx-font-size:18; -fx-font-weight:bold;" text="Season Management"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Search by name/year..."/>
+                <Button text="Search" onAction="#onSearch"/>
+            </children>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+        </HBox>
+    </top>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="233.0" layoutY="138.0" text="Season Management" />
-   </children>
-</AnchorPane>
+    <!-- Table -->
+    <center>
+        <TableView fx:id="tblSeasons" prefHeight="420">
+            <columns>
+                <TableColumn fx:id="colName" text="Season Name" prefWidth="200"/>
+                <TableColumn fx:id="colYear" text="Season Year" prefWidth="200"/>
+            </columns>
+        </TableView>
+        <padding><Insets topRightBottomLeft="8"/></padding>
+    </center>
+
+    <!-- Form -->
+    <bottom>
+        <VBox spacing="10">
+            <children>
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                    </columnConstraints>
+
+                    <children>
+                        <Label text="Season Name"/>
+                        <TextField fx:id="txtName" GridPane.columnIndex="1"/>
+
+                        <Label text="Season Year" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtYear" GridPane.columnIndex="3"/>
+                    </children>
+                </GridPane>
+
+                <HBox spacing="12" alignment="CENTER">
+                    <children>
+                        <Button text="Add"    onAction="#onAdd"    style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                        <Button text="Update" onAction="#onUpdate" style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                        <Button text="Delete" onAction="#onDelete" style="-fx-background-color:#e74c3c; -fx-text-fill:white;"/>
+                        <Button text="Clear"  onAction="#onClear"  style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                    </children>
+                    <padding><Insets topRightBottomLeft="8"/></padding>
+                </HBox>
+
+                <Label fx:id="statusLabel"/>
+            </children>
+            <padding><Insets topRightBottomLeft="12"/></padding>
+        </VBox>
+    </bottom>
+
+    <padding><Insets topRightBottomLeft="8"/></padding>
+</BorderPane>

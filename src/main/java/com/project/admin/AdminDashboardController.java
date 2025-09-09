@@ -45,20 +45,6 @@ public class AdminDashboardController implements SceneManaged  {
     @FXML
     private Button episodeButton;
 
-    // contents
-    // @FXML
-    // private Node homePane;
-    // @FXML
-    // private Node animePane;
-    // @FXML
-    // private Node accountPane;
-    // @FXML
-    // private Node seasonPane;
-    // @FXML
-    // private Node studioPane;
-    // @FXML
-    // private Node episodePane;
-
     private List<Button> navButtons;
     private final Map<Button, Node> paneCache = new HashMap<>();
     private AdminDashboardViewModel adminDashboardViewModel;
@@ -108,6 +94,8 @@ public class AdminDashboardController implements SceneManaged  {
             try {
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlFile)));
                 Node newPane = loader.load();
+
+                newPane.setStyle("-fx-background-color: white;");
 
                 paneCache.put(button, newPane);
                 adminStackPane.getChildren().add(newPane);

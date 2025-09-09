@@ -40,6 +40,7 @@ public class AccountViewModel {
     }
 
     private AccountService accountService;
+
     private AuthService authService;
 
     public AccountViewModel() {

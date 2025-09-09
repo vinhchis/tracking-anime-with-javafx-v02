@@ -28,7 +28,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="adminCountLabel" text="10">
+                        <Label fx:id="adminCountLabel" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -42,7 +42,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="userCountLabel" text="10">
+                        <Label fx:id="userCountLabel" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -56,7 +56,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="totalCountLabel" text="10">
+                        <Label fx:id="totalCountLabel" text="0">
                            <font>
                               <Font size="24.0" />
                            </font>

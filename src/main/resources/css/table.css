@@ -26,3 +26,9 @@
 #acc-table .table-row-cell:even {
   -fx-background-color: white;
 }
+
+#acc-table .button {
+  -fx-background-color: #ff4d4d;
+  -fx-text-fill: white;
+  -fx-font-size: 14px;
+}

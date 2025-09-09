@@ -49,7 +49,7 @@ public class AccountController implements Initializable{
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("userRole"));
         actionColumn.setCellValueFactory(cell -> {
             Button deleteButton = new Button("Delete");
-            deleteButton.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-font-size: 14px;");
+            // deleteButton.setStyle("-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-font-size: 14px;");
             deleteButton.setOnAction(event -> {
                 accountViewModel.deleteAccount(cell.getValue());
                 // update count labels
@@ -66,9 +66,10 @@ public class AccountController implements Initializable{
 
         accountViewModel.selectedAccountProperty().bind(accTableView.getSelectionModel().selectedItemProperty());
 
-        accountViewModel.getAdminCount().bind(adminCountLabel.textProperty());
-        accountViewModel.getUserCount().bind(userCountLabel.textProperty());
-        accountViewModel.getTotalCount().bind(totalCountLabel.textProperty());
+        adminCountLabel.textProperty().bind(accountViewModel.getAdminCount());
+        userCountLabel.textProperty().bind(accountViewModel.getUserCount());
+        totalCountLabel.textProperty().bind(accountViewModel.getTotalCount());
+
 
     }
 

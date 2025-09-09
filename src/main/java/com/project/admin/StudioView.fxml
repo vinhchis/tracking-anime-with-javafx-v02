@@ -1,11 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project.admin.StudioController">
 
+    <!-- Header -->
+    <top>
+        <HBox spacing="10">
+            <children>
+                <Label style="-fx-font-size:18; -fx-font-weight:bold;" text="Studio Management"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Search by name..."/>
+                <Button text="Search" onAction="#onSearch"/>
+            </children>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+        </HBox>
+    </top>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label layoutX="252.0" layoutY="176.0" text="Studio Management" />
-   </children>
-</AnchorPane>
+    <!-- Table -->
+    <center>
+        <TableView fx:id="tblStudios" prefHeight="420">
+            <columns>
+                <TableColumn fx:id="colLogo" text="Logo" prefWidth="100"/>
+                <TableColumn fx:id="colId" text="Studio ID" prefWidth="120"/>
+                <TableColumn fx:id="colName" text="Name" prefWidth="260"/>
+                <TableColumn fx:id="colBestAnimes" text="Best Animes" prefWidth="260"/>
+            </columns>
+        </TableView>
+        <padding><Insets topRightBottomLeft="8"/></padding>
+    </center>
+
+    <!-- Form -->
+    <bottom>
+        <VBox spacing="10">
+            <children>
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                    </columnConstraints>
+
+                    <children>
+                        <Label text="Studio ID"/>
+                        <TextField fx:id="txtId" GridPane.columnIndex="1"/>
+
+                        <Label text="Name" GridPane.rowIndex="1"/>
+                        <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Logo" GridPane.columnIndex="2"/>
+                        <HBox spacing="6" GridPane.columnIndex="3">
+                            <children>
+                                <TextField fx:id="txtLogo" editable="false" HBox.hgrow="ALWAYS"/>
+                                <Button text="Choose..." onAction="#onChooseLogo"/>
+                            </children>
+                        </HBox>
+
+                        <Label text="Best Animes" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <TextField fx:id="txtBestAnimes" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                    </children>
+                </GridPane>
+
+                <HBox spacing="12" alignment="CENTER">
+                    <children>
+                        <Button text="Add"    onAction="#onAdd"    style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                        <Button text="Update" onAction="#onUpdate" style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                        <Button text="Delete" onAction="#onDelete" style="-fx-background-color:#e74c3c; -fx-text-fill:white;"/>
+                        <Button text="Clear"  onAction="#onClear"  style="-fx-background-color:#f59e0b; -fx-text-fill:white;"/>
+                    </children>
+                    <padding><Insets topRightBottomLeft="8"/></padding>
+                </HBox>
+
+                <Label fx:id="statusLabel" />
+            </children>
+            <padding><Insets topRightBottomLeft="12"/></padding>
+        </VBox>
+    </bottom>
+
+    <padding><Insets topRightBottomLeft="8"/></padding>
+</BorderPane>
