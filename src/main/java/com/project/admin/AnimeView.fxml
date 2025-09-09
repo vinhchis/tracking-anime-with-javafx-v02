@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project.admin.AnimeController">
+
+    <!-- Header -->
+    <top>
+        <HBox spacing="10">
+            <children>
+                <Label style="-fx-font-size:18; -fx-font-weight:bold;" text="Product Management"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Search title/season/type/status..."/>
+                <Button text="Search" onAction="#onSearch"/>
+            </children>
+            <padding><Insets topRightBottomLeft="10"/></padding>
+        </HBox>
+    </top>
+
+    <!-- Table -->
+    <center>
+        <TableView fx:id="tbl" prefHeight="420">
+            <columns>
+                <TableColumn text="Poster"  fx:id="colPoster"  minWidth="90"/>
+                <TableColumn text="Title"   fx:id="colTitle"/>
+                <TableColumn text="Season"  fx:id="colSeason"/>
+                <TableColumn text="Type"    fx:id="colType"/>
+                <TableColumn text="Status"  fx:id="colStatus"/>
+                <TableColumn text="Details" fx:id="colDetails" minWidth="90" maxWidth="120"/>
+            </columns>
+        </TableView>
+        <padding><Insets topRightBottomLeft="8"/></padding>
+    </center>
+
+    <!-- Form -->
+    <bottom>
+        <VBox spacing="10">
+            <children>
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                        <ColumnConstraints percentWidth="16"/>
+                        <ColumnConstraints percentWidth="34"/>
+                    </columnConstraints>
+
+                    <children>
+                        <!-- Poster -->
+                        <Label text="Poster"/>
+                        <HBox spacing="6" GridPane.columnIndex="1">
+                            <children>
+                                <TextField fx:id="txtPoster" promptText="auto-filled after choose"
+                                           editable="false" HBox.hgrow="ALWAYS"/>
+                                <Button text="Choose File:" onAction="#onChoosePoster"/>
+                            </children>
+                        </HBox>
+
+                        <Label text="Studio" GridPane.columnIndex="2"/>
+                        <TextField fx:id="txtStudio" GridPane.columnIndex="3"/>
+
+                        <Label text="Title" GridPane.rowIndex="1"/>
+                        <TextField fx:id="txtTitle" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                        <Label text="Status" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <ComboBox fx:id="cbStatus" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                        <Label text="Season" GridPane.rowIndex="2"/>
+                        <ComboBox fx:id="cbSeason" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                        <Label text="Type" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                        <ComboBox fx:id="cbType" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+                        <Label text="Episodes" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+                        <TextField fx:id="txtEpisodes" GridPane.columnIndex="3" GridPane.rowIndex="3"/>
+
+                        <Label text="Introduction" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+                        <TextArea fx:id="txtIntroduction" GridPane.columnIndex="3" GridPane.rowIndex="4"
+                                  prefRowCount="4" wrapText="true"/>
+                    </children>
+
+                    <padding><Insets topRightBottomLeft="8"/></padding>
+                </GridPane>
+
+                <HBox spacing="12" alignment="CENTER">
+                    <children>
+                        <Button text="Add"    onAction="#onAdd"/>
+                        <Button text="Update" onAction="#onUpdate"/>
+                        <Button text="Delete" onAction="#onDelete"/>
+                        <Button text="Clear"  onAction="#onClear"/>
+                    </children>
+                    <padding><Insets topRightBottomLeft="8"/></padding>
+                </HBox>
+
+                <Label fx:id="statusLabel" />
+            </children>
+            <padding><Insets topRightBottomLeft="12"/></padding>
+        </VBox>
+    </bottom>
+
+    <padding><Insets topRightBottomLeft="8"/></padding>
+</BorderPane>

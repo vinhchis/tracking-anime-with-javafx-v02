@@ -17,13 +17,13 @@ public class Main extends Application {
         SeedData.seeds();
 
         // ---------------- //
-        primaryStage.setScene(new Scene(new VBox(), 600, 400));
+        primaryStage.setScene(new Scene(new VBox()));
         primaryStage.setTitle("Tracking Anime Application");
 
         // inject Stage to SceneManager
         SceneManager sceneManager = new SceneManager(primaryStage); // not change
 
-        sceneManager.switchTo(View.LOGIN);
+        sceneManager.switchTo(View.ADMIN_DASHBOARD);
 
         primaryStage.show();
     }

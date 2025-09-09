@@ -26,8 +26,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            // Nếu entity đã tồn tại (managed), merge sẽ cập nhật.
-            // Nếu chưa, nó sẽ tạo mới.
             T mergedEntity = em.merge(entity);
             tx.commit();
             return mergedEntity;
@@ -45,7 +43,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
     public Optional<T> findById(ID id) {
         EntityManager em = emf.createEntityManager();
         try {
-            // T.class lấy từ constructor
             return Optional.ofNullable(em.find(entityClass, id));
         } finally {
             em.close();
@@ -56,7 +53,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
     public List<T> findAll() {
         EntityManager em = emf.createEntityManager();
         try {
-            // Tạo câu lệnh truy vấn JPQL
             return em.createQuery("FROM " + entityClass.getSimpleName(), entityClass).getResultList();
         } finally {
             em.close();
@@ -91,7 +87,6 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
     public long count() {
         EntityManager em = emf.createEntityManager();
         try {
-            // Tạo câu lệnh truy vấn JPQL để đếm
             return em.createQuery("SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e", Long.class)
                     .getSingleResult();
         } finally {
@@ -112,7 +107,7 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
         } catch (Exception e) {
             if (tx.isActive())
                 tx.rollback();
-            throw new RuntimeException("Không thể lưu danh sách entities", e);
+            throw new RuntimeException("Can't not save all entities", e);
         } finally {
             em.close();
         }

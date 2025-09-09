@@ -1,11 +1,10 @@
 package com.project.auth;
 
-import java.util.function.Consumer;
 
+import java.util.Optional;
+
+import com.project.entity.Account;
 import com.project.navigation.NavigationEvent;
-import com.project.navigation.SceneManaged;
-import com.project.navigation.SceneManager;
-import com.project.navigation.View;
 import com.project.repository.AccountRepository;
 import com.project.service.AuthService;
 import com.project.util.JpaUtil;
@@ -42,12 +41,21 @@ public class LoginViewModel {
     }
 
     public void login() {
-        boolean isAuthenticated = authService.authenticate(username.get(), password.get());
-        if (isAuthenticated) {
-            navigationRequest.setValue(NavigationEvent.LOGIN_SUCCESS);
-        } else {
-            navigationRequest.setValue(NavigationEvent.NAVIGATE_TO_REGISTER);
+        String user = username.get().trim();
+        String pass = password.get().trim();
+        Optional<Account> account = authService.login(user, pass);
+        if (!account.isPresent()) {
+            message.set("Invalid username or password");
+            return;
         }
+        message.set("Login successful");
+        if (account.get().getUserRole() == Account.Role.ADMIN) {
+            navigationRequest.set(NavigationEvent.NAVIGATE_TO_ADMIN_DASHBOARD);
+        }else{
+            navigationRequest.set(NavigationEvent.NAVIGATE_TO_USER_DASHBOARD);
+            return;
+        }
+
     }
 
     public StringProperty usernameProperty() {
