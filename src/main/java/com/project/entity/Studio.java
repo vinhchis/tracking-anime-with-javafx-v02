@@ -29,4 +29,11 @@ public class Studio {
     @OneToMany(mappedBy = "studio", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<Anime> animes;
+
+    public void setStudioName(String mappa) {
+    }
+
+    public void setBestAnimes(String s) {
+
+    }
 }

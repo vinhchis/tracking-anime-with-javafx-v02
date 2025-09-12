@@ -37,6 +37,5 @@ public class Account {
 
     public enum Role {
         USER, ADMIN
-}
-
+    }
 }

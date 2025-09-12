@@ -17,4 +17,7 @@ public class SeasonId implements Serializable {
 
     @Column(name = "season_year", nullable = false)
     private Short seasonYear;
+
+    public SeasonId(String winter, short i) {
+    }
 }
