@@ -9,7 +9,7 @@ import java.util.Objects;
 import com.project.navigation.NavigationEvent;
 import com.project.navigation.SceneManaged;
 import com.project.navigation.SceneManager;
-import com.project.navigation.TabView;
+import com.project.navigation.AdminTabView;
 import com.project.navigation.View;
 import com.project.util.AlertUtil;
 
@@ -66,7 +66,6 @@ public class AdminDashboardController implements SceneManaged  {
         Button clickedButton = (Button) event.getSource();
         loadShowPane(clickedButton);
         setActiveButton(clickedButton);
-        setActiveButton(clickedButton);
     }
 
 
@@ -115,19 +114,19 @@ public class AdminDashboardController implements SceneManaged  {
         activeButton.getStyleClass().add("active");
     }
 
-    private TabView getFxmlPathForButton(Button button) {
+    private AdminTabView getFxmlPathForButton(Button button) {
         if (button == homeButton) {
-            return TabView.ADMIN_HOME;
+            return AdminTabView.ADMIN_HOME;
         } else if (button == accountButton) {
-            return TabView.ADMIN_ACCOUNT;
+            return AdminTabView.ADMIN_ACCOUNT;
         } else if (button == animeButton) {
-            return TabView.ADMIN_ANIME;
+            return AdminTabView.ADMIN_ANIME;
         } else if(button == studioButton){
-            return TabView.ADMIN_STUDIO;
+            return AdminTabView.ADMIN_STUDIO;
         }else if(button == seasonButton){
-            return TabView.ADMIN_SEASON;
+            return AdminTabView.ADMIN_SEASON;
         }else if(button == episodeButton){
-            return TabView.ADMIN_EPISODE;
+            return AdminTabView.ADMIN_EPISODE;
         }
         return null;
     }

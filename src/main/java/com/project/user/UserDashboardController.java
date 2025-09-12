@@ -1,5 +1,205 @@
 package com.project.user;
 
-public class UserDashboardController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.ResourceBundle;
+
+import com.project.navigation.NavigationEvent;
+import com.project.navigation.Refreshable;
+import com.project.navigation.SceneManaged;
+import com.project.navigation.SceneManager;
+import com.project.navigation.UserTabView;
+import com.project.navigation.View;
+import com.project.util.AlertUtil;
+
+import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+
+public class UserDashboardController implements SceneManaged, Initializable, Refreshable {
+    @FXML
+    private BorderPane userDashboardBP;
+    // tabs
+    @FXML
+    private Button overviewButton;
+
+    @FXML
+    private Button myListButton;;
+
+    @FXML
+    private Button discoverButton;
+
+    @FXML
+    private StackPane userStackPane;
+    private List<Button> navButtons;
+    private final Map<Button, Node> paneCache = new HashMap<>();
+
+    // auth page
+    @FXML
+    private StackPane authStackPane;
+    @FXML
+    private Node loggedInPane;
+    @FXML
+    private Node loggedOutPane;
+
+    @FXML
+    private Label helloLabel;
+
+    private UserDashboardViewModel userDashboardViewModel;
+    private SceneManager sceneManager;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        userDashboardViewModel = new UserDashboardViewModel();
+
+        // tabs
+        navButtons = List.of(overviewButton, myListButton, discoverButton);
+
+        navButtons.forEach(button -> {
+            button.setOnAction(this::handleNavButtonClick);
+        });
+
+        loadShowPane(discoverButton);
+        setActiveButton(discoverButton);
+
+
+        // bindings
+        helloLabel.textProperty().bind(Bindings.createStringBinding(
+            () -> "Hello, " + userDashboardViewModel.getCurrentUser().getValue().getUsername(), userDashboardViewModel.getCurrentUser()));
+
+        loggedInPane.visibleProperty().bind(userDashboardViewModel.getIsLoggedIn());
+        loggedOutPane.visibleProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
+
+        loggedInPane.managedProperty().bind(loggedInPane.visibleProperty());
+        loggedOutPane.managedProperty().bind(loggedOutPane.visibleProperty());
+
+        myListButton.disableProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
+        overviewButton.disableProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
+
+
+        // userDashboardViewModel.getIsLoggedIn().addListener((observable, oldValue, newValue) -> {
+        //     myListButton.setDisable(!newValue);
+        //     overviewButton.setDisable(!newValue);
+        // });
+
+    }
+
+    @FXML
+    public void handleNavButtonClick(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+        loadShowPane(clickedButton);
+        setActiveButton(clickedButton);
+    }
+
+    private void setActiveButton(Button activeButton) {
+        for (Button button : navButtons) {
+            button.getStyleClass().remove("active");
+        }
+        activeButton.getStyleClass().add("active");
+    }
+
+    private void loadShowPane(Button button) {
+        if (paneCache.containsKey(button)) {
+            Node paneToShow = paneCache.get(button);
+            System.out.println(button.getText() + " tab is loading");
+            paneToShow.toFront();
+        } else {
+            String fxmlFile = getFxmlPathForButton(button).getFxmlFile();
+            if (fxmlFile == null)
+                return;
+
+            try {
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlFile)));
+                Node newPane = loader.load();
+
+                newPane.setStyle("-fx-background-color: white;");
+
+                paneCache.put(button, newPane);
+                userStackPane.getChildren().add(newPane);
+                System.out.println(button.getText() + " tab is loading");
+                newPane.toFront();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private UserTabView getFxmlPathForButton(Button button) {
+        if (button == discoverButton) {
+            return UserTabView.USER_DISCOVER;
+        } else if (button == myListButton) {
+            return UserTabView.USER_MYLIST;
+        } else if (button == overviewButton) {
+            return UserTabView.USER_OVERVIEW;
+        }
+        return null;
+    }
+
+    @FXML
+    public void handleLogout() {
+        userDashboardViewModel.logout();
+        if (userDashboardViewModel.navigationRequestProperty().get() == null) {
+            return;
+        }
+        if (userDashboardViewModel.navigationRequestProperty().get() == NavigationEvent.NAVIGATE_TO_USER_DASHBOARD) {
+            AlertUtil.showAlert(Alert.AlertType.INFORMATION,
+                    userDashboardBP.getScene().getWindow(),
+                    "Logout Successful",
+                    "Back to the User Dashboard");
+            sceneManager.switchTo(View.USER_DASHBOARD);
+        }
+    }
+
+    @FXML
+    public void handleLogin() {
+        userDashboardViewModel.login();
+        if (userDashboardViewModel.navigationRequestProperty().get() == null) {
+            return;
+        }
+        if (userDashboardViewModel.navigationRequestProperty().get() == NavigationEvent.NAVIGATE_TO_LOGIN) {
+            AlertUtil.showAlert(Alert.AlertType.INFORMATION,
+                    userDashboardBP.getScene().getWindow(),
+                    "Navigate to Login",
+                    "Back to the Login Page");
+            sceneManager.switchTo(View.LOGIN);
+        }
+    }
+
+    @FXML
+    public void handleRegister() {
+        userDashboardViewModel.register();
+        if (userDashboardViewModel.navigationRequestProperty().get() == null) {
+            return;
+        }
+        if (userDashboardViewModel.navigationRequestProperty().get() == NavigationEvent.NAVIGATE_TO_REGISTER) {
+            AlertUtil.showAlert(Alert.AlertType.INFORMATION,
+                    userDashboardBP.getScene().getWindow(),
+                    "Navigate to Register",
+                    "Back to the Login Page");
+            sceneManager.switchTo(View.REGISTER);
+        }
+    }
+
+    @Override
+    public void setSceneManager(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
+
+    @Override
+    public void onFresh() {
+        System.out.println("Fresh action: " + userDashboardViewModel.getIsLoggedIn().get() + " count: ");
+    }
 
 }

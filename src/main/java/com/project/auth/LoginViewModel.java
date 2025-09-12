@@ -4,6 +4,7 @@ package com.project.auth;
 import java.util.Optional;
 
 import com.project.entity.Account;
+import com.project.model.Session;
 import com.project.navigation.NavigationEvent;
 import com.project.repository.AccountRepository;
 import com.project.service.AuthService;
@@ -22,7 +23,7 @@ public class LoginViewModel {
     private final StringProperty password = new SimpleStringProperty("");
     private final StringProperty message = new SimpleStringProperty("");
     private final BooleanProperty loginDisabled = new SimpleBooleanProperty(true);
-
+    private Session session = Session.getInstance();
     private final AuthService authService;
     private final ObjectProperty<NavigationEvent> navigationRequest = new SimpleObjectProperty<>(null);
 
@@ -48,11 +49,16 @@ public class LoginViewModel {
             message.set("Invalid username or password");
             return;
         }
+
         message.set("Login successful");
+        session.setCurrentAccount(account.get());
         if (account.get().getUserRole() == Account.Role.ADMIN) {
             navigationRequest.set(NavigationEvent.NAVIGATE_TO_ADMIN_DASHBOARD);
+            message.set("");
+            return;
         }else{
             navigationRequest.set(NavigationEvent.NAVIGATE_TO_USER_DASHBOARD);
+            message.set("");
             return;
         }
 

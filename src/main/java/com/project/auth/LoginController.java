@@ -5,15 +5,19 @@ import com.project.navigation.SceneManager;
 import com.project.navigation.View;
 import com.project.util.AlertUtil;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Window;
 
-public class LoginController implements SceneManaged{
-
+public class LoginController implements SceneManaged {
+    @FXML
+    private BorderPane loginPane;
     @FXML
     private TextField usernameField;
     @FXML
@@ -25,7 +29,6 @@ public class LoginController implements SceneManaged{
 
     private LoginViewModel viewModel;
     private SceneManager sceneManager;
-
 
     @FXML
     public void initialize() {
@@ -42,36 +45,38 @@ public class LoginController implements SceneManaged{
         loginButton.disableProperty().bind(viewModel.loginDisabledProperty());
 
         viewModel.navigationRequestProperty().addListener((obs, oldEvent, newEvent) -> {
-            if (newEvent != null) {
+            if (newEvent == null)
+                return;
+            Platform.runLater(() -> {
+                Window owner = (loginPane.getScene() != null) ? loginPane.getScene().getWindow() : null;
                 switch (newEvent) {
                     case NAVIGATE_TO_USER_DASHBOARD:
                         sceneManager.switchTo(View.USER_DASHBOARD);
                         AlertUtil.showAlert(Alert.AlertType.INFORMATION,
-                                usernameField.getScene().getWindow(),
+                                owner,
                                 "Login Successful",
                                 "Welcome to the User Dashboard!");
                         break;
                     case NAVIGATE_TO_ADMIN_DASHBOARD:
                         sceneManager.switchTo(View.ADMIN_DASHBOARD);
                         AlertUtil.showAlert(Alert.AlertType.INFORMATION,
-                                usernameField.getScene().getWindow(),
+                                owner,
                                 "Login Successful",
                                 "Welcome to the Admin Dashboard!");
                         break;
                 }
-                // Reset lại property sau khi đã xử lý xong
                 viewModel.navigationRequestProperty().set(null);
-            }
+            });
         });
     }
 
     @FXML
     private void handleLogin() {
         viewModel.login();
-
+        Window owner = (loginPane.getScene() != null) ? loginPane.getScene().getWindow() : null;
         if (viewModel.navigationRequestProperty().get() == null) {
             AlertUtil.showAlert(Alert.AlertType.ERROR,
-                    usernameField.getScene().getWindow(),
+                    owner,
                     "Login Failed",
                     viewModel.messageProperty().get());
             usernameField.requestFocus();
@@ -79,8 +84,9 @@ public class LoginController implements SceneManaged{
     }
 
     @FXML
-    private void goToRegister(){
+    private void goToRegister() {
         sceneManager.switchTo(View.REGISTER);
+
     }
 
     @Override

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="576.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.auth.LoginController">
+<BorderPane fx:id="loginPane" prefHeight="576.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.auth.LoginController">
    <top>
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="153.0" text="Sign In" textAlignment="CENTER" underline="true" wrapText="true" BorderPane.alignment="CENTER">
          <font>

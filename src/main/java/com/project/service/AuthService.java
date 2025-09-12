@@ -3,7 +3,6 @@ package com.project.service;
 import java.util.Optional;
 
 import com.project.entity.Account;
-import com.project.model.Session;
 import com.project.repository.AccountRepository;
 import com.project.util.HashUtil;
 
@@ -12,16 +11,14 @@ public class AuthService {
 
     public AuthService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-
     }
 
     public Optional<Account> login(String username, String password) {
         Account account = accountRepository.login(username, password);
         if (account != null) {
-            Session.setCurrentAccount(account);
+
             return Optional.of(account);
         }
-
         return Optional.empty();
     }
 
@@ -42,7 +39,4 @@ public class AuthService {
         return accountRepository.findbyUsername(username).isPresent();
     }
 
-    public void logout() {
-        Session.setCurrentAccount(null);
-    }
 }

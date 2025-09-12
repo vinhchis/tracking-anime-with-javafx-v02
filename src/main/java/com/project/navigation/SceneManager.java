@@ -12,7 +12,9 @@ import javafx.stage.Stage;
 public class SceneManager{
     private final Stage stage;
     private final String basePath = "/com/project";
-    private final Map<View, Parent> viewCache = new HashMap<>(); // View Cache
+    private final Map<View, Parent> sceneCache = new HashMap<>(); // View Cache
+    private final Map<View, Object> controllerCache = new HashMap<>(); // View Cache
+
 
     public SceneManager(Stage stage) {
         this.stage = stage;
@@ -21,10 +23,11 @@ public class SceneManager{
     public void switchTo(View view) {
         try {
             Parent root;
-
-            if(viewCache.containsKey(view)){
+            Object controller;
+            if(sceneCache.containsKey(view)){
                 System.out.println("Loading " + view + " from cache...");
-                root = viewCache.get(view);
+                root = sceneCache.get(view);
+                controller = controllerCache.get(view);
             }else{
                 System.out.println("Loading " + view + " from FXML...");
                 String fxmlPath = basePath + view.getFxmlFile();
@@ -33,15 +36,21 @@ public class SceneManager{
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource(fxmlPath)));
                 root = loader.load();
 
-                Object controller = loader.getController();
+                controller = loader.getController();
                 if (controller instanceof SceneManaged) {
                     ((SceneManaged) controller).setSceneManager(this);
                 }
 
-                viewCache.put(view, root);
+                sceneCache.put(view, root);
+                controllerCache.put(view, controller);
             }
 
             stage.getScene().setRoot(root);
+
+            if(controller instanceof Refreshable){
+                ((Refreshable) controller).onFresh();
+            }
+
 
         } catch (IOException e) {
             System.err.println("Can't not find FXML in View: " + view);

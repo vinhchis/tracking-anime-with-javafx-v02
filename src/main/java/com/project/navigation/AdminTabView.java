@@ -1,6 +1,6 @@
 package com.project.navigation;
 
-public enum TabView {
+public enum AdminTabView {
     // tabs of Admin Page
     ADMIN_HOME("/admin/HomeView.fxml"),
     ADMIN_ACCOUNT("/admin/AccountView.fxml"),
@@ -14,7 +14,7 @@ public enum TabView {
 
     private final String fxmlFile;
 
-    TabView(String fxmlFile) {
+    AdminTabView(String fxmlFile) {
         this.fxmlFile = "/com/project" + fxmlFile;
     }
 

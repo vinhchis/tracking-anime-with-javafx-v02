@@ -11,19 +11,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static Stage primaryStage;
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage stage) throws Exception {
         // SEED DATA //
         SeedData.seeds();
 
         // ---------------- //
+        primaryStage = stage;
         primaryStage.setScene(new Scene(new VBox()));
         primaryStage.setTitle("Tracking Anime Application");
 
         // inject Stage to SceneManager
         SceneManager sceneManager = new SceneManager(primaryStage); // not change
 
-        sceneManager.switchTo(View.ADMIN_DASHBOARD);
+        sceneManager.switchTo(View.USER_DASHBOARD);
 
         primaryStage.show();
     }
