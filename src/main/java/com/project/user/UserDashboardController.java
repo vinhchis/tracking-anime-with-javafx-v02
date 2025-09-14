@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.project.entity.Account;
 import com.project.navigation.NavigationEvent;
 import com.project.navigation.Refreshable;
 import com.project.navigation.SceneManaged;
@@ -17,6 +18,7 @@ import com.project.navigation.View;
 import com.project.util.AlertUtil;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,7 +38,7 @@ public class UserDashboardController implements SceneManaged, Initializable, Ref
     private Button overviewButton;
 
     @FXML
-    private Button myListButton;;
+    private Button myListButton;
 
     @FXML
     private Button discoverButton;
@@ -64,7 +66,6 @@ public class UserDashboardController implements SceneManaged, Initializable, Ref
     public void initialize(URL arg0, ResourceBundle arg1) {
         userDashboardViewModel = new UserDashboardViewModel();
 
-        // tabs
         navButtons = List.of(overviewButton, myListButton, discoverButton);
 
         navButtons.forEach(button -> {
@@ -74,10 +75,14 @@ public class UserDashboardController implements SceneManaged, Initializable, Ref
         loadShowPane(discoverButton);
         setActiveButton(discoverButton);
 
-
         // bindings
         helloLabel.textProperty().bind(Bindings.createStringBinding(
-            () -> "Hello, " + userDashboardViewModel.getCurrentUser().getValue().getUsername(), userDashboardViewModel.getCurrentUser()));
+            () -> {
+                ObjectProperty<Account> accProp = userDashboardViewModel.getCurrentUser();
+                Account acc = accProp != null ? accProp.getValue() : null;
+                return "Hello, " + (acc != null ? acc.getUsername() : "Guest");
+            },
+            userDashboardViewModel.getCurrentUser()));
 
         loggedInPane.visibleProperty().bind(userDashboardViewModel.getIsLoggedIn());
         loggedOutPane.visibleProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
@@ -87,13 +92,6 @@ public class UserDashboardController implements SceneManaged, Initializable, Ref
 
         myListButton.disableProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
         overviewButton.disableProperty().bind(userDashboardViewModel.getIsLoggedIn().not());
-
-
-        // userDashboardViewModel.getIsLoggedIn().addListener((observable, oldValue, newValue) -> {
-        //     myListButton.setDisable(!newValue);
-        //     overviewButton.setDisable(!newValue);
-        // });
-
     }
 
     @FXML

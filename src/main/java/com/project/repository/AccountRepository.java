@@ -3,7 +3,6 @@ package com.project.repository;
 import java.util.Optional;
 
 import com.project.entity.Account;
-import com.project.entity.Account.Role;
 import com.project.util.HashUtil;
 
 import jakarta.persistence.EntityManager;
@@ -14,7 +13,7 @@ public class AccountRepository extends JpaRepository<Account, Integer> {
         super(emf);
     }
 
-    public Account login(String username, String password) {
+    public Account findByUsernameAndPassword(String username, String password) {
         EntityManager em = emf.createEntityManager();
         try {
             Account account = em.createQuery(
@@ -43,7 +42,7 @@ public class AccountRepository extends JpaRepository<Account, Integer> {
         }
     }
 
-    public Optional<Account> findbyUsername(String username) {
+    public Optional<Account> findByUsername(String username) {
         EntityManager em = emf.createEntityManager();
         try {
             Account account = em.createQuery(

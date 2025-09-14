@@ -9,3 +9,7 @@ public class EpisodeRepository extends JpaRepository<Episode, Integer> {
         super(emf);
     }
 }
+
+/*
+ * Episode has : Anime
+ */

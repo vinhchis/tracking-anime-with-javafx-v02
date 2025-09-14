@@ -14,7 +14,7 @@ public class AuthService {
     }
 
     public Optional<Account> login(String username, String password) {
-        Account account = accountRepository.login(username, password);
+        Account account = accountRepository.findByUsernameAndPassword(username, password);
         if (account != null) {
 
             return Optional.of(account);
@@ -36,7 +36,7 @@ public class AuthService {
     }
 
     public boolean checkAccountExisted(String username){
-        return accountRepository.findbyUsername(username).isPresent();
+        return accountRepository.findByUsername(username).isPresent();
     }
 
 }

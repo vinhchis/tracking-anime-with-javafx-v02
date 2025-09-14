@@ -1,12 +1,16 @@
 package com.project.repository;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 
 public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
 
@@ -112,4 +116,28 @@ public abstract class JpaRepository<T, ID> implements GenericRepository<T, ID> {
             em.close();
         }
     }
+
+     @Override
+    public List<T> findBy(String attributeName, Object value) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(entityClass);
+            Root<T> root = cq.from(entityClass);
+            cq.select(root).where(cb.equal(root.get(attributeName), value));
+
+            return em.createQuery(cq).getResultList();
+
+        } catch (Exception e) {
+            System.err.println("Can't use findBy: " + e.getMessage());
+            e.printStackTrace();
+            return Collections.emptyList();
+        } finally {
+            em.close();
+        }
+    }
 }
+/*
+ * Only for Entity : Account, Season and Studio
+ * Need findBy to for : Anime, Episode, Tracking, Notification
+ */

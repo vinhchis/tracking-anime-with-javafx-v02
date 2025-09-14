@@ -2,6 +2,8 @@ package com.project.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -37,8 +39,9 @@ public class Anime {
     @Column(name = "total_episodes")
     private Short totalEpisodes;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "schedule_day", length = 10)
-    private String scheduleDay;
+    private DayOfWeek scheduleDay; // Use DayOfWeek enum : Monday, Tuesday, ...
 
     @Column(name = "schedule_time")
     private LocalTime scheduleTime;
@@ -65,10 +68,10 @@ public class Anime {
     @ToString.Exclude
     private Set<Tracking> trackings;
 
-    @OneToMany(mappedBy = "anime", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Set<Notification> notifications;
+    // @OneToMany(mappedBy = "anime", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // @EqualsAndHashCode.Exclude
+    // @ToString.Exclude
+    // private Set<Notification> notifications;
 
     public enum AnimeStatus {
         ONGOING, COMPLETED, HIATUS, CANCELLED, UPCOMING
@@ -76,7 +79,6 @@ public class Anime {
 
     public enum AnimeType {
         TV, MOVIE, OVA, SPECIAL
-
     }
 
 

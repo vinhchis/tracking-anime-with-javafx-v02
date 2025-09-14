@@ -22,7 +22,7 @@ public class Notification {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name = "is_read")
+    @Column(name = "is_read", nullable = false, columnDefinition = "BIT DEFAULT 0")
     private Boolean isRead;
 
     // --- Relationships ---
@@ -30,7 +30,21 @@ public class Notification {
     @JoinColumn(name = "user_id", nullable = false)
     private Account account;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "anime_id")
-    private Anime anime;
+    // @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "anime_id")
+    // private Anime anime;
+
+    @Column(name = "notifiable_type")
+    @Enumerated(EnumType.STRING)
+    private NotifiableType notifiableType;
+
+    @Column(name = "notifiable_id")
+    private Long notifiableId; // can be episode_id, season_id, tracking_id
+
+    public enum NotifiableType {
+        EPISODE_RELEASE,
+        NEW_SEASON,
+        TRACKING_UPDATE,
+        GENERAL_ANNOUNCEMENT
+    }
 }

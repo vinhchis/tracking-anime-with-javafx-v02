@@ -9,3 +9,6 @@ public class NotificationRepository extends JpaRepository<Notification, Integer>
         super(emf);
     }
 }
+/*
+ * Notification need : account, anime
+ */

@@ -9,3 +9,6 @@ public class TrackingRepository extends JpaRepository<Tracking, Integer> {
         super(emf);
     }
 }
+/*
+ * Tracking need : Anime, Account
+ */
