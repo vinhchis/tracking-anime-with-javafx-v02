@@ -1,6 +1,7 @@
 package com.project.shared;
 
 import com.project.util.AssetUtils;
+import com.project.util.HoverAnimation;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,9 +21,11 @@ public class AnimeCard extends VBox {
     private final Label dateLabel;
     private final Label epsLabel;
     private final Button addBtn;
+    private final Label typeLabel;
+    private final Label statusLabel;
 
-    public AnimeCard(String title, String studio, String season, String date,
-                     String imageUrl, int eps) {
+    public AnimeCard(String title, String studio, String season, String time, String date,
+                     String imageUrl, int eps, String status, String type) {
 
         // ===== Card style =====
         this.setPrefWidth(250);
@@ -44,12 +47,12 @@ public class AnimeCard extends VBox {
         poster.setPreserveRatio(false);
 
         // Badges
-        Label badge1 = new Label("TV");
-        badge1.setStyle("-fx-background-color: #eee; -fx-padding: 3 8; -fx-background-radius: 12;");
-        Label badge2 = new Label("Completed");
-        badge2.setStyle("-fx-background-color: #eee; -fx-padding: 3 8; -fx-background-radius: 12;");
+        typeLabel = new Label(status);
+        typeLabel.setStyle("-fx-background-color: #eee; -fx-padding: 3 8; -fx-background-radius: 12;");
+        statusLabel = new Label(type);
+        statusLabel.setStyle("-fx-background-color: #eee; -fx-padding: 3 8; -fx-background-radius: 12;");
 
-        HBox badges = new HBox(5, badge1, badge2);
+        HBox badges = new HBox(5, typeLabel, statusLabel);
         badges.setAlignment(Pos.TOP_LEFT);
         badges.setPadding(new Insets(10));
 
@@ -71,7 +74,7 @@ public class AnimeCard extends VBox {
 
         studioLabel = new Label("🎬 " + studio);
         seasonLabel = new Label("🍂 " + season);
-        timeLabel = new Label("⏰ 11:25 PM"); // nếu muốn fix sẵn giờ
+        timeLabel = new Label("⏰ " + time);
         dateLabel = new Label("📅 " + date);
 
         epsLabel = new Label(eps + " eps");
@@ -90,6 +93,8 @@ public class AnimeCard extends VBox {
 
         // ===== Combine =====
         this.getChildren().addAll(imagePane, infoBox, addBtn);
+
+        // Animation
     }
 
     public Button getAddBtn() {

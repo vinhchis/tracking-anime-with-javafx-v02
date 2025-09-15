@@ -20,4 +20,9 @@ public class Season {
     @OneToMany(mappedBy = "season", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude @ToString.Exclude
     private Set<Anime> animes;
+
+    @Override
+    public String toString() {
+        return id.getSeasonName() + " " + id.getSeasonYear();
+    }
 }

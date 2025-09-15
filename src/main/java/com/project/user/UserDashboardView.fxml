@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="userDashboardBP" prefHeight="746.0" prefWidth="1102.0" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.user.UserDashboardController">
+<BorderPane fx:id="userDashboardBP" prefHeight="803.0" prefWidth="1213.0" stylesheets="@/css/styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.user.UserDashboardController">
   <center>
-    <StackPane fx:id="userStackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    <StackPane fx:id="userStackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1200.0" BorderPane.alignment="CENTER" />
   </center>
 
   <top>
